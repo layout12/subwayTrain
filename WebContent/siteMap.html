@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Site Map</title>
+<style type="text/css">
+	hr{
+		width: 600px;
+	}
+	
+	article{
+		width: 800px;
+		height: 500px;
+		margin: auto;
+		margin-top: 25px;
+		border: 1px solid white;
+		border-radius: 20px 20px 20px 20px;
+		background-color: white;
+	}
+	
+	.ul{
+		float: left;
+		color: gray;
+		font-size: 20px;
+		margin-left: 105px;
+		line-height: 35px;
+	}
+	
+	article a{
+		color: gray;
+		text-decoration: none;
+	}
+	
+	article a:hover{
+		color: #E7F001;
+	}
+	
+	.ul span{
+		color: #515151;
+		font-weight: bold;
+		font-size: 22px;
+	}
+	
+	ul{
+		list-style: none;
+		padding-left: 0px;
+	}
+	
+</style>
+</head>
+<body style="background-color: #5474C0">
+	
+	<article>
+	
+	<div style="text-align: center;">
+	<h1 style="font-size: 35px; color: #5474C0;">택도없조 사이트맵</h1>
+	</div>
+	<hr>
+	
+	<div class="ul">
+	<ul>
+		<li class="title"><span>택도없조 정보</span>
+			<ul>
+				<li><a href="index.jsp">Index</a></li>
+				<li><a href="main.jsp">Main</a></li>
+				<li><a href="siteInfo.jsp">사이트 소개</a></li>
+			</ul>
+		</li>
+	</ul>
+	</div>
+	
+	<div class="ul">
+	<ul>
+		<li class="title"><span>각 호선 정보</span>
+			<ul>
+				<li><a href="line2.jsp">2호선</a></li>
+				<li><a href="line3.jsp">3호선</a></li>
+				<li><a href="line4.jsp">4호선</a></li>
+				<li><a href="line5.jsp">5호선</a></li>
+				<li><a href="line6.jsp">6호선</a></li>
+				<li><a href="line7.jsp">7호선</a></li>
+				<li><a href="line9.jsp">9호선</a></li>
+			</ul>
+		</li>
+	</ul>
+	</div>
+	
+	<div class="ul">
+	<ul>
+		<li class="title"><span>게시판</span>
+			<ul>
+				<li><a href="metroCon.do?command=noticeList&role=ADMIN&rowNo=1">공지사항</a></li>
+				<li><a href="metroCon.do?command=noticeList&role=USER&rowNo=1">커뮤니티</a></li>
+			</ul>
+		</li>
+	</ul>
+	</div>
+	
+	</article>
+	
+</body>
+</html>

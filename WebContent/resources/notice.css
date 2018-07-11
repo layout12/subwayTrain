@@ -1,0 +1,61 @@
+@CHARSET "UTF-8";
+/*---------------------------------怨듯넻�쁺�뿭---------------------------------------------*/
+html,body{margin:0; font-family: 'Malgun Gothic','�룍��','dotum','Arial'; letter-spacing: -1px;}
+ul{margin:0; padding:0;}
+li{list-style: none;}
+textarea{resize:none; padding:5px; overflow: auto; wrap:virtual;}
+input{padding:5px;}
+
+/* input[value]{font-weight:bold; font-size:16px; text-align: center;} */
+button{cursor:pointer;}
+.btnBase01{padding:6px 13px; border:none; cursor:pointer; background-color: #5474C0; color:#fff; font-size:15px; text-align: center; text-decoration: none;}
+.btnBase02{padding:5px 13px; border:1px solid #5474C0; cursor:pointer; background-color: white; color:#5474C0; font-size:15px; text-align: center; text-decoration: none;}
+
+
+/*---------------------------�뿬湲곕��꽣 怨듭��궗�빆------------------------------------*/
+#wrap{margin:0 auto; width:960px;}	
+#wrap .titList{color:#5474C0; font-size: 60px;}
+	
+/* �뀒�씠釉� �쁺�뿭*/
+#tbWrap table{width:100%; color:#222; margin-bottom:15px; font-size: 15px; text-align:center; border-collapse:collapse; border-spacing:0px; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;}
+#tbWrap table thead{width:900px; background: #eaeaea;}
+#tbWrap table th,td{height:20px; padding:8px;}
+#tbWrap table td{border-bottom: 1px solid #ccc;}	
+#tbWrap table td .comTxt{color:#3399ff; font-weight: bold;}/*�뜤援� �떖由� �닔*/
+.listLink,.commLink{text-decoration: none; color:#222; cursor: pointer;}
+.listLink:hover{text-decoration: underline;}
+.btnFt{float:right;}  /*由ъ뒪�듃 �븘�옒 湲��벐湲� 踰꾪듉 . 洹� �븘�옒 �럹�씠吏뺤쓣 clear:both泥섎━
+	
+/*-------------怨듭��궗�빆 DETAIL �솕硫�------------*/
+#tbWrap .dtlTit{font-size: 30px;}
+#tbWrap .dtlTit2 th{background-color: #f1f1f1; border-bottom: 1px solid #c3c3c3;}
+#tbWrap .dtlCon{width:940px; line-height:px; text-align: center;}
+#tbWrap .dtlCon textarea{width:900px; border: none; resize:none;}
+.dtlBtns{float:right; margin-bottom:20px;}
+.dtlBtns li{display:inline; width:300px; margin-left:2px;}	
+	
+	
+/* �뜤湲� �쁺�뿭*/
+#commWrap{clear:both; width:920px; padding:20px; margin-bottom:50px; overflow:auto; background-color:#f1f1f1; color:#222; font-size:13px;border-spacing:0px; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;}
+#commWrap > table {width:900px; margin:0 auto;}
+#commWrap .commName{font-weight:bold;}
+#commWrap .commVline{color:#c4c4c4; height:10px;}
+#commWrap .commInsert{position:relative; width:880px;}
+#commWrap .commInsert > span{padding-left:20px;}
+#commWrap .commInsert > span > textarea{padding:10px;}
+#commWrap .commInsert button{position:absolute; top:0px; right:3px; padding:23px 26px; border:none; background-color:#5474C0; color:#fff;}
+
+/* 寃��깋 �쁺�뿭*/
+#searchWrap{position:relative; margin-bottom:10px;}
+#searchWrap .search{position:absolute; top:-40px; right:220px; width:100px; height:32px; margin-right:5px;}
+#searchWrap li{position:absolute; top:-40px; right:0px; display: inline-block;}
+#searchWrap > ul > li #searchWord{border:1px solid #ccc; width:205px; padding: 5px; margin-right:5px;}
+#searchWrap ul {width:400px;}
+#searchWrap ul li{float:left; list-style: none;}
+	
+/*�럹�씠吏�*/
+#pageWrap{clear:both; width:600px; margin:0 auto; text-align: center; margin-top:40px;}
+#pageWrap span{font-size:15px;}
+#pageWrap .pgNumOn{border-radius:5px; padding:10px 15px; background-color:#5474C0; color:#fff; margin-right:3px;}
+#pageWrap .pgNum{border-radius:5px; padding:10px 15px; background-color:#ccc; color:#222; margin-right:3px;}
+

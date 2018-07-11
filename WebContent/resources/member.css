@@ -1,0 +1,48 @@
+@CHARSET "EUC-KR";
+/*---------------------------------공통영역---------------------------------------------*/
+html,body{padding:0; margin:0; font-family: 'Malgun Gothic','돋움','dotum','Arial'; letter-spacing: -1px;}
+input{font-family: 'Malgun Gothic','돋움','dotum','Arial'; letter-spacing: -1px;}
+ul{margin:0; padding:0;}
+li{list-style: none;}
+textarea{resize:none; padding:5px; overflow: auto; wrap:virtural;}
+input{padding:5px;}
+#memberWrap1 input[value]{font-weight:bold; font-size:16px; text-align: center;}
+#memberWrap2 input[value]{font-weight:bold; font-size:16px; text-align: center;}
+button{cursor:pointer;}
+.btnBase01{padding:6px 13px; border:none; cursor:pointer; background-color: #5474C0; color:#fff; font-size:15px; text-align: center; text-decoration: none;}
+.btnBase02{padding:5px 13px; border:1px solid #5474C0; cursor:pointer; background-color: white; color:#5474C0; font-size:15px; text-align: center; text-decoration: none;}
+.btnBase03{padding:8px 83px; border-radius:5px 5px 5px 5px; border:none; cursor:pointer; background-color: #5474C0; color:#fff; font-size:15px; text-align: center; text-decoration: none;}
+.btnBase04{padding:9px 13px; border:none; cursor:pointer; background-color: #5474C0; color:#fff; font-size:14px; text-align: center; text-decoration: none;-webkit-border-radius:5px 5px 5px 5px;}
+
+/*--------로그인 영역--------------*/
+#memberWrap1{position:relative; margin:50px auto; padding:30px 20px; width:300px; background-color:#fff; text-align: center; border-radius:5px 5px 5px 5px; border:1px solid #5474C0;}
+#memberWrap1 h1{font-size: 20px;}
+#memberWrap1 .loginForm{margin:10px auto;}
+#memberWrap1 .loginForm ul >li > span{font-size:13px; font-weight:bold; text-align:left;}
+#memberWrap1 .loginForm input{border:none; width:220px; height:26px; padding:80px; margin-bottom:10px; background-color:#efefef; padding:5px; -webkit-border-radius:5px 5px 5px 5px;}
+#memberWrap1 span img, #memberWrap2 span img{position:absolute; top:10px; right:15px;}
+
+/*--------회원가입 영역--------------*/
+#memberWrap2{position:relative; margin:50px auto; padding:30px 20px; width:300px; background-color:#fff; text-align: center; border-radius:5px 5px 5px 5px; border:1px solid #5474C0;}
+#memberWrap2 h1{font-size: 20px;}
+#memberWrap2 .joinForm{margin:10px auto;}
+#memberWrap2 .joinForm .btnBase04{position:absolute; top:83px; right:25px;}
+#memberWrap2 .idText{font-size: 13px; text-align:left; margin:-5px 0 12px 10px; color:red;}
+#memberWrap2 .joinForm ul >li > span{font-size:13px; font-weight:bold; text-align:left;}
+#memberWrap2 .joinForm li input{border:none; width:280px; height:26px; padding:80px; margin-bottom:10px; background-color:#efefef; padding:5px; -webkit-border-radius:5px 5px 5px 5px;}
+
+/*--------회원정보 영역--------------*/
+#memberWrap3{position:relative; margin:0 auto; width:960px;}
+#memberWrap3 .titList{color:#5474C0; font-size: 60px;}
+#memberWrap3 .dtlBtns {position:absolute; top:360px; right:-5px;}
+#memberWrap3 .dtlBtns li{float:left; margin-right:5px;}
+
+#memberWrap3 #tbWrap table, #memberWrap3 #tbWrapUp table{width:100%; color:#222; margin-bottom:15px; font-size: 15px; text-align:center; border-collapse:collapse; border-spacing:0px; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;}
+#memberWrap3 #tbWrap table th,td{padding:8px;}
+#memberWrap3 #tbWrap table th,#memberWrap3 #tbWrapUp table th{border-bottom: 1px solid #8299d0; background-color: #5474C0; color:#fff;}
+#memberWrap3 #tbWrap table td,#memberWrap3 #tbWrapUp table td{border-bottom: 1px solid #ccc;}	
+
+#memberWrap3 #tbWrapUp table th,td{padding:6px;}
+#memberWrap3 #tbWrapUp input{padding:2px;}	
+
+

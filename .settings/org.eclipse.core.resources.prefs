@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+encoding//WebContent/resources/notice.css=UTF-8
+encoding//src/metro/Controller/metroController.java=UTF-8
+encoding//src/metro/DB/MCOMMENT.sql=UTF-8
+encoding//src/metro/DB/MUSER.sql=UTF-8
+encoding//src/metro/DB/MWRITE.sql=UTF-8
+encoding//src/metro/biz/mBiz.java=UTF-8
+encoding//src/metro/biz/mBizInterface.java=UTF-8
+encoding//src/metro/dao/mDao.java=UTF-8
+encoding//src/metro/dao/mDaoInterface.java=UTF-8
+encoding//src/metro/dto/mDto.java=UTF-8

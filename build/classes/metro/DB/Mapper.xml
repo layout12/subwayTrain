@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="metro.metro">
+  
+  <resultMap type="metro.dto.mDto" id="dtoMap">
+  	<result column="ID" property="id" />
+  	<result column="PASSWORD" property="password" />
+  	<result column="NAME" property="name" />
+  	<result column="NICKNAME" property="nickname" />
+  	<result column="PHONE" property="phone" />
+  	<result column="EMAIL" property="email" />
+  	<result column="ROLE" property="role" />
+  	<result column="ENABLED" property="enabled" />
+  	<result column="WRITENO" property="writeNo" />
+  	<result column="TITLE" property="title" />
+  	<result column="CONTENT" property="content" />
+  	<result column="REGDATE" property="regDate" />
+  	<result column="DELCHECK" property="delCheck" />
+  	<result column="COMMENTNO" property="commentNo" />
+  </resultMap>
+  
+<!-- 나(회원)의 정보조회 -->
+ <select id="uSellectEnabled" parameterType="String" resultType="mDto">
+  	SELECT * FROM MUSER WHERE ID=#{id}
+ </select> 
+ 
+ <!-- 나(회원)의 정보수정 -->
+ <update id="uUpdate" parameterType="mDto">
+  	UPDATE MUSER SET PASSWORD=#{password},NICKNAME=#{nickname},PHONE=#{phone},EMAIL=#{email} WHERE ID=#{id}
+ </update>
+ 
+ <!-- 나(회원)탈퇴 -->
+ <update id="uDelUser" parameterType="String">
+ 	UPDATE MUSER SET ENABLED='N' WHERE ID=#{id}
+ </update>
+ 
+ <!-- 회원 글쓰기 -->
+ <insert id="wInsert" parameterType="mDto">
+ 	INSERT INTO MWRITE VALUES(WRITESQ.NEXTVAL,#{id},#{nickname},#{title},#{content},SYSDATE,'Y',#{role})
+ </insert>
+ 
+ <!-- 회원 글수정 -->
+ <update id="wUpdate" parameterType="mDto">
+ 	UPDATE MWRITE SET TITLE=#{title},CONTENT=#{content},REGDATE=SYSDATE WHERE WRITENO=#{writeNo}
+ </update>
+  
+ <!-- 회원 글 삭제 -->
+ <update id="wDelete" parameterType="int">
+ 	UPDATE MWRITE SET DELCHECK='N' WHERE WRITENO=#{writeNo}
+ </update> 
+ 
+ <!-- 덧글쓰기 -->
+ <insert id="cInsert" parameterType="mDto">
+ 	INSERT INTO MCOMMENT VALUES(#{writeNo},#{commentNo},#{id},#{nickname},#{content},SYSDATE,'Y')
+ </insert>
+ 
+ <!-- 덧글수정 : 파라미터타입이 여러개일 경우 'map'으로 써줌. 그리고 이 타입은 Dao session에 맵핑됨-->
+ <update id="cUpdate" parameterType="map">
+ 	UPDATE MCOMMENT SET CONTENT=#{content} WHERE WRITENO=#{writeNo} AND COMMENTNO=#{commentNo}
+ </update>
+ 
+ <!-- 덧글삭제 : 파라미터타입이 여러개일 경우 'map'으로 써줌 -->
+ <update id="cDelete" parameterType="map">
+ 	UPDATE MCOMMENT SET DELCHECK='N' WHERE WRITENO=#{writeNo} AND COMMENTNO=#{commentNo}
+ </update>
+  
+  <!-- 회원가입 -->
+  <insert id="insertUser" parameterType="mDto">
+  	INSERT INTO MUSER VALUES(#{id}, #{password}, #{name}, #{nickname}, #{phone}, #{email}, 'USER', 'Y')
+  </insert>
+  
+  <!-- 아이디 중복체크 -->
+  <select id="idChk" parameterType="String" resultType="String" >
+  	SELECT ID FROM MUSER WHERE ID=#{id}
+  </select>
+  
+  <!-- 게시판 리스트 -->
+  <select id="board" parameterType="map" resultMap="dtoMap">
+  	SELECT WRITENO, ID, NICKNAME, TITLE, CONTENT, REGDATE, DELCHECK, ROLE FROM (SELECT ROWNUM AS RN, WRITENO, ID, NICKNAME, TITLE, CONTENT, REGDATE, DELCHECK, ROLE FROM (SELECT * FROM MWRITE WHERE ROLE=#{role} ORDER BY WRITENO DESC)) WHERE RN BETWEEN #{start} AND #{end}
+  </select>
+  
+  <!-- 글 갯수 체크 -->
+  <select id="allRow" parameterType="String" resultType="int">
+  	SELECT COUNT(*) FROM MWRITE WHERE ROLE=#{role}
+  </select>
+  
+  <!-- 게시판 글 검색; 닉네임, 제목, 내용 -->
+  <select id="search" parameterType="map" resultMap="dtoMap">
+  	
+  	SELECT WRITENO, ID, NICKNAME, TITLE, CONTENT, REGDATE, DELCHECK, ROLE FROM
+  	(SELECT ROWNUM AS RN, WRITENO, ID, NICKNAME, TITLE, CONTENT, REGDATE, DELCHECK, ROLE FROM
+  	(SELECT * FROM MWRITE WHERE ROLE=#{role}
+  	
+  	  	<choose>
+  		<when test="where.equals('NICKNAME')">
+  			AND NICKNAME LIKE '%'||#{search}||'%'
+  		</when>
+  		<when test="where.equals('TITLE')">
+  			AND TITLE LIKE '%'||#{search}||'%'
+  		</when>
+  		<otherwise>
+  			AND CONTENT LIKE '%'||#{search}||'%'
+  		</otherwise>
+  	</choose>
+  	AND DELCHECK='Y'
+  	ORDER BY WRITENO DESC))
+  	WHERE RN BETWEEN #{start} AND #{end}
+  	
+  </select>
+  
+  <!-- 게시판 검색글 갯수; 닉네임, 제목, 내용 -->
+  <select id="searchRow" parameterType="map" resultType="int">
+  	
+  	SELECT COUNT(*) FROM MWRITE WHERE ROLE=#{role}
+  	
+  	  	<choose>
+  		<when test="where.equals('NICKNAME')">
+  			AND NICKNAME LIKE '%'||#{search}||'%'
+  		</when>
+  		<when test="where.equals('TITLE')">
+  			AND TITLE LIKE '%'||#{search}||'%'
+  		</when>
+  		<otherwise>
+  			AND CONTENT LIKE '%'||#{search}||'%'
+  		</otherwise>
+  	</choose>
+  	
+  </select>
+  
+  <!-- 글 디테일 -->
+  <select id="writeDetail" parameterType="int" resultMap="dtoMap">
+  	SELECT * FROM MWRITE WHERE WRITENO=#{writeNo}
+  </select>
+  
+  <!-- 덧글 가져오기 -->
+  <select id="commentDetail" parameterType="int" resultMap="dtoMap">
+  	<!-- SELECT WRITENO, COMMENTNO, ID, NICKNAME, CONTENT, REGDATE, DELCHECK FROM (SELECT ROWNUM AS RN, WRITENO, COMMENTNO, ID, NICKNAME, CONTENT, REGDATE, DELCHECK FROM (SELECT * FROM MCOMMENT WHERE WRITENO=#{writeNo} ORDER BY COMMENTNO)) WHERE RN BETWEEN ${start} AND ${end} -->
+  	SELECT * FROM MCOMMENT WHERE WRITENO=#{writeNo} ORDER BY COMMENTNO
+  </select>
+  
+  <!-- 덧글 갯수 체크 -->
+	<select id="commentAllRow" parameterType="int" resultType="int">
+  	SELECT COUNT(*) FROM MCOMMENT WHERE WRITENO=#{writeNo}
+ 	</select>
+  
+  
+  <!-- 관리자 -->
+  <!-- 모든 유저 조회 -->
+  <select id="aAllUser" parameterType="map" resultMap="dtoMap">
+ 	 SELECT ID, PASSWORD, NAME, NICKNAME, PHONE, EMAIL, ROLE, ENABLED FROM (
+		SELECT ROWNUM AS RN, ID, PASSWORD, NAME, NICKNAME, PHONE, EMAIL, ROLE, ENABLED 
+  			FROM (SELECT ID, PASSWORD, NAME, NICKNAME, PHONE, EMAIL, ROLE, ENABLED FROM MUSER ORDER BY ID) WHERE ROWNUM &lt;= #{end})
+  				WHERE RN &gt;= #{start}
+	
+  </select>
+  
+  <!-- 회원 수 -->
+  <select id="aAllRow" resultType="int">
+  	SELECT COUNT(*) FROM MUSER
+  </select>
+  
+  <!-- 회원 검색; 아이디, 이름, 닉네임, 전화번호, 이메일, role, 가입여부 -->
+  <select id="aSearchUser" parameterType="map" resultMap="dtoMap">
+  	 SELECT ID, PASSWORD, NAME, NICKNAME, PHONE, EMAIL, ROLE, ENABLED FROM (
+		SELECT ROWNUM AS RN, ID, PASSWORD, NAME, NICKNAME, PHONE, EMAIL, ROLE, ENABLED 
+  			FROM (SELECT ID, PASSWORD, NAME, NICKNAME, PHONE, EMAIL, ROLE, ENABLED FROM MUSER WHERE
+  			<choose>
+  			<when test="type.equals('id')">
+  				ID LIKE '%'||#{keyword}||'%'
+  			</when>
+  			<when test="type.equals('name')">
+  				NAME LIKE '%'||#{keyword}||'%'
+  			</when>
+  			<when test="type.equals('nickname')">
+  				NICKNAME LIKE '%'||#{keyword}||'%'
+  			</when>
+  			<when test="type.equals('phone')">
+  				PHONE LIKE '%'||#{keyword}||'%'
+  			</when>
+  			<when test="type.equals('email')">
+  				EMAIL LIKE '%'||#{keyword}||'%'
+  			</when>
+  			<when test="type.equals('role')">
+  				ROLE LIKE '%'||#{keyword}||'%'
+  			</when>
+  			<when test="type.equals('enabled')">
+  				ENABLED LIKE '%'||#{keyword}||'%'
+  			</when>
+  			</choose>
+  			 ORDER BY ID) WHERE ROWNUM &lt;= #{end})
+  				WHERE RN &gt;= #{start}
+  </select>
+  
+  <!-- 검색한 데이터의 갯수 -->
+  <select id="aSearchRow" parameterType="map" resultType="int">
+  	SELECT COUNT(*) FROM MUSER WHERE 
+  		<choose>
+  			<when test="type.equals('id')">
+  				ID LIKE '%'||#{keyword}||'%'
+  			</when>
+  			<when test="type.equals('name')">
+  				NAME LIKE '%'||#{keyword}||'%'
+  			</when>
+  			<when test="type.equals('nickname')">
+  				NICKNAME LIKE '%'||#{keyword}||'%'
+  			</when>
+  			<when test="type.equals('phone')">
+  				PHONE LIKE '%'||#{keyword}||'%'
+  			</when>
+  			<when test="type.equals('email')">
+  				EMAIL LIKE '%'||#{keyword}||'%'
+  			</when>
+  			<when test="type.equals('role')">
+  				ROLE LIKE '%'||#{keyword}||'%'
+  			</when>
+  			<when test="type.equals('enabled')">
+  				ENABLED LIKE '%'||#{keyword}||'%'
+  			</when>
+  		</choose>
+  </select>
+  
+  <!-- 회원 role 수정 -->
+  <update id="aUpdateUser" parameterType="map">
+  	UPDATE MUSER SET ROLE = #{role}, ENABLED = #{enabled} WHERE ID = #{id}
+  </update>
+  
+  <!-- 로그인 -->
+  <select id="login" parameterType="map" resultMap="dtoMap">
+  	SELECT PASSWORD FROM MUSER WHERE ID = #{id} AND ENABLED='Y'
+  </select>
+  
+</mapper>
